@@ -1,0 +1,3 @@
+---
+providerRegex: ^(talos-ovh)$
+bypassDnsResolution: true
