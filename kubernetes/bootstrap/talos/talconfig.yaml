@@ -6,17 +6,18 @@ talosVersion: v1.6.5
 kubernetesVersion: v1.29.2
 
 clusterName: &cluster home-kubernetes
-endpoint: https://5.135.158.69:6443
+endpoint: https://cloud.wouterbouvy.nl:6443
 clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
   - "10.96.0.0/16"
-# additionalApiServerCertSans: &sans
-#   - "5.135.158.69"
-#   - 127.0.0.1 # KubePrism
-# additionalMachineCertSans: *sans
-cniConfig:
-  name: none
+additionalApiServerCertSans: &sans
+  - "5.135.158.69"
+  - "2001:41d0:8:d845::1"
+  - 127.0.0.1 # KubePrism
+additionalMachineCertSans: *sans
+# cniConfig:
+#   name: none
 
 nodes:
   - hostname: "talos-ovh"
@@ -29,10 +30,13 @@ nodes:
         dhcp: false
         addresses:
           - "5.135.158.69/24"
+          - "2001:41d0:8:d845::1/128"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: "5.135.158.254"
+          - network: ::/0
+            gateway: "2001:41d0:8:d8ff:ff:ff:ff:ff"
 
 patches:
   # Configure containerd
@@ -131,8 +135,8 @@ controlPlane:
         # controllerManager:
         #   extraArgs:
         #     bind-address: 0.0.0.0
-        proxy:
-          disabled: true
+        # proxy:
+        #   disabled: true
         # scheduler:
         #   extraArgs:
         #     bind-address: 0.0.0.0
