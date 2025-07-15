@@ -3,14 +3,14 @@
 name: "devcontainer"
 
 on:
-  workflow_dispatch:
-  push:
-    branches: ["main"]
-    paths: [".devcontainer/ci/**"]
-  pull_request:
-    branches: ["main"]
-    paths: [".devcontainer/ci/**"]
-  schedule:
+  # workflow_dispatch:
+  # push:
+  #   branches: ["main"]
+  #   paths: [".devcontainer/ci/**"]
+  # pull_request:
+  #   branches: ["main"]
+  #   paths: [".devcontainer/ci/**"]
+  # schedule:
     # - cron: "0 0 * * 1"
 
 concurrency:
